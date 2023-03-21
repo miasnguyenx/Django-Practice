@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+
+</head>
+
+<body>
+    <h1>Product Record</h1>
+    <h2>Data Table</h2>
+    <div class="product-record">
+        <table>
+            <thead>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Option</th>
+            </thead>
+            {% for product in products %}
+            <tr>
+                <td>{{product.code}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                <td>
+                    <a href="{% url 'crud:detail' product.code %}"><button>update</button></a>
+                    <a href="{% url 'crud:delete' product.code %}"><button>delete</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>
