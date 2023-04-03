@@ -1,0 +1,43 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> {% block link_static %} {% endblock %}
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="left">
+            <ul>
+                <li>
+                    <a class="nav-brand" href="{% url 'crud:products' %}">Home</a>
+                </li>
+
+                <li>
+                    <a class="nav-admin" href="{% url 'admin:index' %}">Admin</a>
+                </li>
+                {% if logged %}
+                <li>
+                    <a class="nav-logout" href="{% url 'crud:login' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="nav-login" href="{% url 'crud:login' %}">Login</a>
+                </li>
+                {% endif %}
+
+                <li>
+                    <a class="nav-register" href="{% url 'crud:register' %}">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block body_block %} {% endblock %}
+</body>
+
+</html>

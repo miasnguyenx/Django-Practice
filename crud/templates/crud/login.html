@@ -1,6 +1,0 @@
-<form action="{% url 'crud:login' %}" method="post">
-    {% if message %}
-    <p><strong>{{ message }}</strong></p>
-    {% endif %} {% csrf_token %} {{ form }}
-    <input type="submit" value="Submit">
-</form>

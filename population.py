@@ -1,5 +1,6 @@
 import os
 import django
+from django.contrib.auth.hashers import make_password, check_password
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','myproject.settings')
 django.setup()
 
@@ -10,6 +11,7 @@ from crud.models import Product, User
 from crud.models import Order as CrudOrder
 from faker import Faker
 from order.models import Order as OrderOrder
+from django.contrib.auth import authenticate
 import uuid
 
 fakegen = Faker()
@@ -40,6 +42,11 @@ def add_order_clone(n=10):
     for i in range(n):
         o = CrudOrder.objects.create()
         
+def add_password():
+        password = make_password('haha')
+        check = check_password('haha', password)
+        return print(password, check)
+    
 def add_order_product(n=10):
     for i in range(n):
         # o1 = CrudOrder();
@@ -56,7 +63,9 @@ def add_order_product(n=10):
     
 if __name__ == '__main__':
     print("populating script!")
-    add_order_product(1)
+    # add_order_product(1)
+    add_password()
     print("complete")
+    
     
     

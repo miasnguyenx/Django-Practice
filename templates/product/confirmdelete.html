@@ -1,0 +1,5 @@
+<form action="{% url 'crud:delete' product.code %}" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ product }}"?</p>
+    <input type="submit" name="submit" value="Confirm">
+    <input type="submit" name="submit" value="Cancel">
+</form>

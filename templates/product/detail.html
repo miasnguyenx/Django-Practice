@@ -1,0 +1,38 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/productdetail.css'%}">
+</head>
+
+<body>
+    <form action="{% url 'crud:update' product.code %}" method="post">
+        {% if message %}
+        <p><strong>{{ message }}</strong></p>
+        {% endif %} {% csrf_token %}
+        <div class="product-detail">
+            <div class="text-field">
+                <label for="name">Product</label>
+                <input type="text" name="name" id="name" placeholder="{{ product.name }}">
+                <span></span>
+            </div>
+            <div class="text-field">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" placeholder="{{ product.description }}">
+                <span></span>
+            </div>
+            <div class="text-field">
+                <label for="price">Price</label>
+                <input type="text" name="price" id="price" placeholder="{{ product.price }}">
+                <span></span>
+            </div>
+            <input type="submit" value="Update" class="submit-btn">
+        </div>
+    </form>
+</body>
+
+</html>

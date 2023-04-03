@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html> {% load static %}
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django</title>
-    <link rel="stylesheet" href="{% static 'css/mystyle.css'} ">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
 </head>
 
 <body>
@@ -15,13 +16,17 @@
     <div class="user-record ">
         <table>
             <thead>
-                <th>User Name</th>
-                <th>User email</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Password</th>
             </thead>
             {% for user in users %}
             <tr>
-                <td>{{user.last_name}} {{user.first_name}}</td>
+                <td>{{user.first_name}} {{user.last_name}}</td>
                 <td>{{user.email}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
             </tr>
             {% endfor %}
         </table>

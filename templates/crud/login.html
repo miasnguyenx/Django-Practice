@@ -1,0 +1,26 @@
+{% extends "crud/base.html" %}
+<!DOCTYPE html> {% load static %}
+<!--  -->
+{% block link_static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<!--  -->
+{% endblock %}
+<!--  -->
+{% block body_block %}
+<form action="{% url 'crud:login' %}" method="post" autocomplete="false">
+    {% if message %}
+    <p><strong>{{ message }}</strong></p>
+    {% endif %} {% csrf_token %} {% for field in form %}
+    <div class="text-field">
+        {{ field }} {{ field.label_tag }}
+        <span></span>
+    </div>
+    {% endfor %}
+    <input type="submit" value="Login" class="submit">
+    <div class="signup">
+        Not a member?
+        <a href="{% url 'crud:register' %}">Signup</a>
+    </div>
+</form>
+<script type="text/javascript" src="{% static 'js/login.js' %}"></script>
+{% endblock %}

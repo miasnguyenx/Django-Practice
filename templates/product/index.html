@@ -1,0 +1,32 @@
+{% extends "crud/base.html" %}
+<!DOCTYPE html> {% load static %} {% block link_static %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}"> {% endblock link_static %} {% block body_block %}
+
+<h1>Product Record</h1>
+<h2>Data Table</h2>
+<div class="product-record">
+    <table>
+        <thead>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Option</th>
+        </thead>
+        {% for product in products %}
+        <tr>
+            <td class="code">{{product.code}}</td>
+            <td class="name">{{product.name}}</td>
+            <td class="description">{{product.description}}</td>
+            <td class="price">{{product.price}}</td>
+            <td class="option">
+                <a class="button" href="{% url 'crud:detail' product.code %}">update</a>
+                <a class="button" href="{% url 'crud:confirmdelete' product.code %}">delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+</html>
