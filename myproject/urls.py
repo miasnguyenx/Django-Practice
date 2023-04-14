@@ -25,6 +25,7 @@ urlpatterns = [
     path('crud/', include('crud.urls')),
     path('admin/', admin.site.urls),
     path('order/', include('order.urls')),
+
     path('', views.login),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

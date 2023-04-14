@@ -10,9 +10,29 @@ from django.contrib.auth.hashers import Argon2PasswordHasher
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view,  permission_classes
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
+from datetime import datetime
+
 # Create your views here.
 def index(request):
     return HttpResponse("Hello, world. You're at the main site index.")
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def index1(request):
+    return HttpResponse("This is restfulAPI written in function based view")
+
+class index2(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return HttpResponse("Class based view restfulAPI")
+    
+    def post(self, request):
+        return HttpResponse("Class based view restfulAPI")
 
 def users(request):
     users = User.objects.all()
@@ -39,6 +59,7 @@ def products(request):
 def detail(request, product_code):
     print(request.method)
     product = get_object_or_404(Product, pk=product_code)
+
     print('-------------------------------------')
     print(product)
     print('-------------------------------------')
@@ -83,6 +104,7 @@ def delete(request, product_code):
         print(request.method)
         return HttpResponseRedirect(reverse('crud:products'))
         
+    return render(request, 'product/detail.html', {'product': product})
 
 def orders(request):
     orders = Order.objects.all()
@@ -152,8 +174,7 @@ def register(request):
 
 
 # import serializer from rest_framework
-from rest_framework import serializers
-from datetime import datetime
+
  
 # create a serializer
 class CommentSerializer(serializers.Serializer):

@@ -14,4 +14,6 @@ urlpatterns = [
     path('delete/<str:product_code>', views.delete, name="delete"),
     path('update/<str:product_code>', views.update, name="update"),
     path('confirmdelete/<str:product_code>', views.confirm_delete, name="confirmdelete"),
+    path('index2', views.index2.as_view(), name="APIviewCBV"),
+    path('index1', views.index1, name="APIviewFBV")
 ]

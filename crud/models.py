@@ -3,6 +3,7 @@ import uuid
 from faker import Faker
 import random
 from django import forms
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.db import models
 from pygments.lexers import get_all_lexers
@@ -12,7 +13,6 @@ LEXERS = [item for item in get_all_lexers() if item[1]]
 LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
-
 class Snippet(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
@@ -20,29 +20,28 @@ class Snippet(models.Model):
     linenos = models.BooleanField(default=False)
     language = models.CharField(choices=LANGUAGE_CHOICES, default='python', max_length=100)
     style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
-
+    
     class Meta:
         ordering = ['created']
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     portfolio_site = models.URLField(blank=True)
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
+    
     def __str__(self) -> str:
         return self.user.username
-    
-class User(models.Model):
-    username = models.CharField(max_length=30, default='nameuser')
+class User(AbstractUser):
+    username = models.CharField(max_length=30, default='nameuser', unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
     password = models.CharField(
         default='abc',
-        max_length=50,
+        max_length=200,
         )
     def __str__(self) -> str:
         return self.user.username
         
-
 class Product(models.Model):
     code = models.UUIDField(
          primary_key = True,
