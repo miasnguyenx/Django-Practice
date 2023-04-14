@@ -4,12 +4,28 @@ from crud.models import User, Product, Order
 from django import forms
 from django.urls import reverse
 from .forms import LoginForm
-from .forms import RegisterForm, ProductForm
+from .forms import RegisterForm
 from .helper import vallidatedata
+from rest_framework.decorators import api_view,  permission_classes
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def index1(request):
+    return HttpResponse("This is restfulAPI written in function based view")
+
+class index2(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return HttpResponse("Class based view restfulAPI")
+    
+    def post(self, request):
+        return HttpResponse("Class based view restfulAPI")
+    
 
 def users(request):
     users = User.objects.all()
@@ -29,7 +45,7 @@ def products(request):
 
 def detail(request, product_code):
     product = get_object_or_404(Product, pk=product_code)
-    return render(request, 'product/detail.html', {'product': product,'form':ProductForm})
+    return render(request, 'product/detail.html', {'product': product})
 
 def orders(request):
     orders = Order.objects.all()

@@ -3,16 +3,16 @@ import uuid
 from faker import Faker
 import random
 from django import forms
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
-class User(models.Model):
-    username = models.CharField(max_length=30, default='nameuser')
+class User(AbstractUser):
+    username = models.CharField(max_length=30, default='nameuser', unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
     password = models.CharField(
         default='abc',
-        max_length=50,
+        max_length=200,
         )
 
 class Product(models.Model):
