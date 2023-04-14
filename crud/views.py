@@ -16,6 +16,11 @@ def index(request):
 
 def users(request):
     users = User.objects.all()
+    for user in users:
+        print(user.username)
+        print(type(user.username))
+        print(user.password)
+        print(type(user.password))
     context = {'users': users}
     print(type(request))
     print(request)
@@ -81,6 +86,10 @@ def delete(request, product_code):
 
 def orders(request):
     orders = Order.objects.all()
+    for order in orders:
+        print(type(order))
+        print(order.code)
+        print(order.products)
     context = {'orders': orders}
     return render(request, 'order/index.html', context)
 
@@ -139,6 +148,34 @@ def register(request):
     else:
         form = RegisterForm()
         return render(request, 'crud/register.html', {'form': form})
+
+
+
+# import serializer from rest_framework
+from rest_framework import serializers
+from datetime import datetime
+ 
+# create a serializer
+class CommentSerializer(serializers.Serializer):
+    # initialize fields
+    email = serializers.EmailField()
+    content = serializers.CharField(max_length = 200)
+    created = serializers.DateTimeField()
+    
+class Comment(object):
+    # initialize fields
+    def  __init__(self, email, content, created = None):
+        self.email = email
+        self.content = content
+        self.created = created or datetime.now()
+        
+
+comment = Comment(email ='leila@example.com', content ='foo bar')
+print(comment)
+print(comment.email)
+print(type(comment.email))
+serializer = CommentSerializer(comment)
+serializer.data
 
 # def create(request):
 #     orders = Order.objects.all()

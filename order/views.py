@@ -14,3 +14,4 @@ def details(request):
 
 def orders(reqquest):
     return HttpResponse("This is the list order")
+
